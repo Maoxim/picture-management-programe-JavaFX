@@ -2,6 +2,7 @@
 **要求功能全部已经实现，但未优化界面。**
 
 可参考(没错 就是这么丑🥶）
+优化代码等答辩后再进行更新🤧
 
 主界面：
 <img width="1186" alt="1" src="https://user-images.githubusercontent.com/76590045/112329242-fe83f580-8cf1-11eb-917e-c5e0faec04e5.png">
