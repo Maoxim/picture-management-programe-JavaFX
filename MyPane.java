@@ -13,7 +13,8 @@ public class MyPane extends Pane {
     MyPane(){
         super();
         setPrefSize(350,718);
-        setStyle("-fx-background-color:lightblue");
+        setStyle("-fx-background-color:rgb(255,255,255)");
+        setStyle("-fx-border-color: rgb(216,216,216)");
         //  setStyle("-fx-background-color:rgb(249,248,248)");
 
 

@@ -11,18 +11,6 @@ public class MyTreeViewController {
         fileStack.push(fileTreeItem);
     }
 
-    public void pushFileStackTempt(String fileTreeItem){
-        fileStackTempt.push(fileTreeItem);
-    }
-
-    public String popFileStack(String fileTreeItem){
-        return fileStack.pop();
-    }
-
-    public String popFileStackTempt(String fileTreeItem){
-        return fileStackTempt.pop();
-    }
-
     public void initEnterFolder(String path) {
         //入栈以便于后续前进后退
         if (fileStack.isEmpty() || !fileStack.peek().equals(path)) {

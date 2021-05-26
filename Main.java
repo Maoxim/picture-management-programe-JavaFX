@@ -19,7 +19,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Electronic Picture Management Program");
+        primaryStage.setTitle("图片管理系统");
         primaryStage.setMaximized(true);//能够最大化
         primaryStage.setResizable(true);//能够改变窗口大小
 
@@ -30,9 +30,6 @@ public class Main extends Application {
         Scene scene = new Scene(borderPane,homePage01.getWidth(), homePage01.getHeight());
         System.out.println(homePage01.getWidth()+"+"+homePage01.getHeight());
 
-        //菜单栏建立
-        MyMenuBar myMenuBar = new MyMenuBar();
-        borderPane.setTop(myMenuBar);
 
         //具体信息栏
         MyPane myPane = new MyPane();
@@ -46,7 +43,11 @@ public class Main extends Application {
         MyFlowPane myFlowPane = new MyFlowPane();
         borderPane.setCenter(myFlowPane);
 
-        MouseDraggedController mouseDraggedController = new MouseDraggedController();
+        //文件夹信息菜单
+        MyFolderPane myFolderPane = new MyFolderPane();
+        borderPane.setBottom(myFolderPane.pane);
+
+
 
         primaryStage.setScene(scene);
         primaryStage.show();

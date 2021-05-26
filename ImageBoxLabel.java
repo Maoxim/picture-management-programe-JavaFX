@@ -14,6 +14,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
+
 public class ImageBoxLabel {
     private final String imageName;
     private final String imagePath;
@@ -51,16 +53,15 @@ public class ImageBoxLabel {
     public void setOnMouseClickedOnImage(){
 
         imageLabel.setOnMouseClicked(mouseEvent -> {
-            System.out.println("2");
 
             if(Controller.temptVBox!=null){
-                Controller.temptVBox.setStyle("-fx-background-color: gray");
+                Controller.temptVBox.setStyle("-fx-background-color: rgb(255,255,255)");
                 Controller.temptVBox = vBox;
                 vBox.setStyle("-fx-background-color: lightgray");
             }
             else {
                 Controller.temptVBox = vBox;
-                vBox.setStyle("-fx-background-color: lightgray");
+                vBox.setStyle("-fx-background-color: rgb(255,255,255)");
             }
 
             //创建一个舞台
@@ -69,13 +70,23 @@ public class ImageBoxLabel {
                 new MyImagePane(imagePath,imageName);
 
 
+
             }
             else if(mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 1){
+                MyFlowPane.a = 1;
+                System.out.println("321\n");
 
                 ImagePreviewLabel imagePreviewLabel = new ImagePreviewLabel(imagePath,300,300);
                 imagePreviewLabel.addLabelOnPane(imagePreviewLabel.getImageLabeled());
 
-                ImagePreviewInformation imagePreviewInformation = new ImagePreviewInformation(imagePath,imageName);
+                ImagePreviewInformation imagePreviewInformation = null;
+                try {
+                    imagePreviewInformation = new ImagePreviewInformation(imagePath,imageName);
+                    MyFlowPane.a =0;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                assert imagePreviewInformation != null;
                 imagePreviewInformation.addInformationOfImageOnPane(imagePreviewInformation.getImageInformationLabel());
             }
         });

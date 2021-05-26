@@ -30,7 +30,7 @@ public class MyTreeView extends TreeView<File> {
         folderIcon.setFitWidth(16);
         folderIcon.setFitHeight(16);
 
-        String path1 = "/";
+        String path1 = "/users/tangmaoxin";
         File file = new File(path1);
         File[] items = file.listFiles();
 
@@ -40,7 +40,7 @@ public class MyTreeView extends TreeView<File> {
 
         for (File item : items) {
 
-            if(item.isDirectory()) {
+            if(item.isDirectory()&&item.getName().charAt(0)!='.') {
                 TreeItem<File> treeItem = new TreeItem<>(item);
                 mainTreeItem.getChildren().add(treeItem);
                 addItems(treeItem, 0);
@@ -55,6 +55,7 @@ public class MyTreeView extends TreeView<File> {
         treeView.setShowRoot(false);
 
 
+        //在这里判断点击了哪一个文件夹newValue
         treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             String path = newValue.getValue().getAbsolutePath();
 
@@ -62,6 +63,13 @@ public class MyTreeView extends TreeView<File> {
             try {
                 addItems(newValue, 0);
                 myFlowPane.getPicture(newValue);
+
+                MyFolderPane.folder = newValue;
+                MyFolderPane myFolderPane = new MyFolderPane();
+                myFolderPane.getInformationOfFolder();
+
+
+
 
 
             } catch (IOException e) {
@@ -83,6 +91,9 @@ public class MyTreeView extends TreeView<File> {
                             Label label = new Label(isListRoots(item));
                             this.setGraphic(hBox);
                             this.setStyle("-fx-border-color: rgb(244,244,244)");
+                            if (this.getTreeItem().isExpanded()) {
+                                this.setStyle("-fx-background-color: rgb(170,170,170)");
+                            }
                             hBox.getChildren().add(label);//把label加到hBox面板中
 
                         } else {
