@@ -1,5 +1,6 @@
 # - SCAU JAVA课设 电子图片管理程序 （JavaFX）
 
+只用了JavaFX，没有用SceneBuilder，最终版在分支2.0，不要下载错了，Java主程序的文件夹包叫做sample，要不然会报错。
 
 主界面：
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210526163941954.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01hb3hpbQ==,size_16,color_FFFFFF,t_70)
@@ -27,4 +28,4 @@ MyTreeVIew类：是负责控制目录树的类，里面负责保存用户对目�
 SecondPane类：负责获取用户的电脑屏幕大小，以便于控制软件第二个弹出的窗口的大小
 Support类：负责保存该系统支持图片的类型，方便后期的维护和修改
 
-2021.3.24
+2021.5.26
