@@ -13,8 +13,11 @@
 该系统一共有15个类，分别是Controller，HomePage,ImageBoxLabel,ImageMenuLabel,ImagePreviewInnformation,ImagePreviewLabel,Main,MyFlowPane,MyImagePane,MyPane,MytreeView,MyTreeViewController,SecondPane,Support
 
 Controller类：负责对FlowPane的控制（刷新）
+
 HomePage类：负责获取用户的电脑屏幕大小，以便于控制软件的窗口大小
+
 ImageBoxLabel类：针对的是在FlowPane中的缩略图的一个对象，包括实现双击后弹出新窗口，单击显示图片详细信息的操作
+
 ImageMenuItem类：针对的是当用户右击图片时的删除，重命名和复制的操作
 ImageMenuLabel类：是当用户单击缩略图的时候，最右方Pane中放大图的对象，并将图片放在Label中
 ImagePreviewInformation类：负责保存图片的详细信息，出现在ImageMenuLabel的下方，信息包括，图片名，位置，图片大小，图片宽度，图片高度，最后访问时间，最后修改时间，文件所有者。
