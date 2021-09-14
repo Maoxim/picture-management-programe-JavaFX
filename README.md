@@ -19,16 +19,27 @@ HomePage类：负责获取用户的电脑屏幕大小，以便于控制软件的
 ImageBoxLabel类：针对的是在FlowPane中的缩略图的一个对象，包括实现双击后弹出新窗口，单击显示图片详细信息的操作
 
 ImageMenuItem类：针对的是当用户右击图片时的删除，重命名和复制的操作
+
 ImageMenuLabel类：是当用户单击缩略图的时候，最右方Pane中放大图的对象，并将图片放在Label中
+
 ImagePreviewInformation类：负责保存图片的详细信息，出现在ImageMenuLabel的下方，信息包括，图片名，位置，图片大小，图片宽度，图片高度，最后访问时间，最后修改时间，文件所有者。
+
 Main类：负责的是将各个Pane加入到Sence中。
+
 MyPlowPane类：则是放缩略图的Pane。
+
 MyFolderPane类：是放在BorderPane的bottom的一个Pane，里面存放该文件夹一共有多少个图片，以及图片的总大小。
+
 MyImagePane类：是当用户双击后，弹出新窗口的Pane，里面实现了图片的放大，缩小， 左移和右移的操作
+
 MyPane类：是最右边的Pane，负责存放ImageMenuLabel和ImagePreviewInformation
+
 MyTreeView类：是最左边的目录树，当用户点击不同的文件夹的时候，会将文件夹的图片添加到FlowPane中
+
 MyTreeVIew类：是负责控制目录树的类，里面负责保存用户对目录树的点击操作
+
 SecondPane类：负责获取用户的电脑屏幕大小，以便于控制软件第二个弹出的窗口的大小
+
 Support类：负责保存该系统支持图片的类型，方便后期的维护和修改
 
 2021.5.26
