@@ -14,8 +14,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.TimerTask;
 
 
 public class MyImagePane {
@@ -28,13 +30,15 @@ public class MyImagePane {
     private SecondPage secondPage = new SecondPage();
     private double times =1;
     private Image image ;
+    private static boolean autoPlay = false;
     ImageView imageView;
+    Stage imageStage;
 
     MyImagePane(String imagePath,String imageName){
         this.imagePath = imagePath;
         this.imageName = imageName;
 
-        Stage imageStage = new Stage();
+        imageStage = new Stage();
         imageStage.setTitle(imageName);
         SecondPage secondPage = new SecondPage();
 
@@ -45,10 +49,10 @@ public class MyImagePane {
         
         borderPane.setPrefSize(secondPage.getWidth(),secondPage.getHeight());
 
-        scrollPane.setStyle("-fx-background-color: yellow");
         imageStage.setScene(new Scene(borderPane,secondPage.getWidth(),secondPage.getHeight()));
         imageStage.show();
     }
+
     private void initImage(String imagePath){
         image = new Image(imagePath);
         imageView = new ImageView(image);
@@ -58,7 +62,7 @@ public class MyImagePane {
         imageView.setPreserveRatio(true);//保持缩放比例
 
         borderPane.setCenter(scrollPane);
-        borderPane.setStyle("-fx-background-color: lightblue");
+
 
         addImageOnPane(imageView);
     }
@@ -67,11 +71,11 @@ public class MyImagePane {
 
 
 
-        imageLabel.setStyle("-fx-border-color: black");
         imageLabel.setPrefSize(secondPage.getWidth()-100,secondPage.getHeight()-150);
         imageLabel.setAlignment(Pos.BASELINE_CENTER);
 
         imageLabel.setGraphic(imageView);
+
         scrollPane.setContent(imageLabel);
         scrollPane.setPadding(new Insets(0,50,0,50));
         scrollPane.setHvalue(0.5);
@@ -85,17 +89,56 @@ public class MyImagePane {
         hBox.setSpacing(20);
         hBox.setAlignment(Pos.CENTER);
         hBox.getChildren().clear();
+
+
         Button enlargeButton = new Button("放大");
         Button narrowButton = new Button("缩小");
-        Button moveLeftButton = new Button("<--️");
+        Button moveLeftButton = new Button("<--");
         Button moveRightButton = new Button("-->");
+        Button auto = new Button("自动播放");
 
+        auto.setStyle("-fx-min-height: 30; -fx-min-width: 80;-fx-background-color: rgb(210,210,210);");
+        enlargeButton.setStyle("-fx-min-height: 30; -fx-min-width: 80;-fx-background-color: rgb(210,210,210);");
+        narrowButton.setStyle("-fx-min-height: 30; -fx-min-width: 80;-fx-background-color: rgb(210,210,210);");
+        moveLeftButton.setStyle("-fx-min-height: 30; -fx-min-width: 80;-fx-background-color: rgb(210,210,210);");
+        moveRightButton.setStyle("-fx-min-height: 30; -fx-min-width: 80;-fx-background-color: rgb(210,210,210);");
+
+        auto.setPrefSize(60,60);
         enlargeButton.setPrefSize(60,60);
         narrowButton.setPrefSize(60,60);
         moveLeftButton.setPrefSize(60,60);
         moveRightButton.setPrefSize(60,60);
 
-        hBox.getChildren().addAll(moveLeftButton,enlargeButton,narrowButton,moveRightButton);
+        hBox.getChildren().addAll(moveLeftButton,enlargeButton,narrowButton,moveRightButton,auto);
+
+        auto.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if(autoPlay){
+                    autoPlay = false;
+                    auto.setText("自动播放");
+                }
+                else {
+                    autoPlay = true;
+                    auto.setText("停止播放");
+                }
+
+                AsyncWhile asyncWhile = new AsyncWhile(i -> {
+                    try {
+                        moveRight();
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return autoPlay;
+                    // return false when you're done
+                    //     or true if you want to be called again
+                });
+
+// can asyncWhile.kill() should we need to
+
+            }
+        });
 
         enlargeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -127,6 +170,8 @@ public class MyImagePane {
 
         borderPane.setBottom(hBox);
     }
+
+
 
     private void enlargeImage(){
             times += 0.15;
@@ -160,14 +205,14 @@ public class MyImagePane {
                 String fileName = fileList[i].getName();
                 String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
                 //支持图片的格式
-                if (suffix.equals("jpg")||suffix.equals("JPG")||suffix.equals("png")) {
+                if (suffix.equals("jpg")||suffix.equals("JPG")||suffix.equals("png")||suffix.equals("BMP")
+                        ||suffix.equals("GIF")||suffix.equals("JPEG")) {
                         last = i;
 
 
                 }
             }
         }
-        System.out.println(last);
         
         int t1=-1;
         int t2=-1;
@@ -177,15 +222,14 @@ public class MyImagePane {
                 String fileName = fileList[i].getName();
                 String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
                 //支持图片的格式
-                if (suffix.equals("jpg")||suffix.equals("JPG")||suffix.equals("png")) {
+                if (suffix.equals("jpg")||suffix.equals("JPG")||suffix.equals("png")||suffix.equals("BMP")
+                        ||suffix.equals("GIF")||suffix.equals("JPEG")||suffix.equals("gif")) {
                     t1=t2;
                     t2=i;
                     if(fileList[i].getAbsolutePath().equals(imagePath.substring(5))){
-                            System.out.println("Find it!");
                             if(t1==-1){
                                 t1 = last;
                             }
-                        System.out.println(t1);
                             break;
                     }
 
@@ -200,6 +244,7 @@ public class MyImagePane {
         imageView.setPreserveRatio(true);//保持缩放比例
 
         imagePath = "File:"+fileList[t1].getAbsolutePath();
+        fileList[t1].getName();
         //System.out.println(imagePath);
         addImageOnPane(imageView);
         //System.out.println("t2:"+t2);
@@ -221,7 +266,8 @@ public class MyImagePane {
                 String fileName = fileList[i].getName();
                 String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
                 //支持图片的格式
-                if (suffix.equals("jpg")||suffix.equals("JPG")||suffix.equals("png")) {
+                if (suffix.equals("jpg")||suffix.equals("JPG")||suffix.equals("png")||suffix.equals("BMP")
+                        ||suffix.equals("GIF")||suffix.equals("JPEG")||suffix.equals("gif")) {
                     if(t1==0){
                         t2=i;
                         t1++;
@@ -233,7 +279,8 @@ public class MyImagePane {
                                fileName = fileList[j].getName();
                                suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
                                 //支持图片的格式
-                                if (suffix.equals("jpg") || suffix.equals("JPG") || suffix.equals("png")) {
+                                if (suffix.equals("jpg")||suffix.equals("JPG")||suffix.equals("png")||suffix.equals("BMP")
+                                        ||suffix.equals("GIF")||suffix.equals("JPEG")||suffix.equals("gif")) {
                                     t=j;
                                     System.out.println(t);
                                     break label;
@@ -258,6 +305,8 @@ public class MyImagePane {
 
         imagePath = "File:"+fileList[t].getAbsolutePath();
         //System.out.println(imagePath);
+        //
+        imageStage.setTitle(fileList[t].getName());
         addImageOnPane(imageView);
         //System.out.println("t2:"+t2);
         times =1;

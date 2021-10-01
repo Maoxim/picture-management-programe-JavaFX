@@ -12,6 +12,7 @@ import java.io.*;
 public class ImageMenuItem {
     private final ContextMenu contextMenu = new ContextMenu();//菜单项组
 
+
     ImageMenuItem(String path){
 
         MenuItem delete = new MenuItem("删除");
@@ -26,7 +27,7 @@ public class ImageMenuItem {
 
         rename.setOnAction(actionEvent -> renameImage(path));
 
-        contextMenu.getItems().addAll(delete,copy,rename);
+        contextMenu.getItems().addAll(copy,rename,delete);
         contextMenu.setStyle("-fx-background-color:rgb(255, 255, 255, .85)");    //透明设置
 
 
@@ -41,11 +42,11 @@ public class ImageMenuItem {
 
         if(file.delete()){
             Controller.refreshPane();
+            flash();
         }
 
     }
 
-    //有点点小bug，记得改下，  +"_1"+'.' ，这个问题
     //图片右键复制功能
     public void copyImage(String path){
         //源文件地址
@@ -72,7 +73,12 @@ public class ImageMenuItem {
             out.close();
             out.close();
             System.out.println("复制成功！");
+
+            flash();
+
+
             Controller.refreshPane();
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -115,5 +121,12 @@ public class ImageMenuItem {
             }
         }
         return filename;
+    }
+
+    public void flash(){
+
+        MyFolderPane myFolderPane = new MyFolderPane();
+        myFolderPane.getInformationOfFolder();
+
     }
 }

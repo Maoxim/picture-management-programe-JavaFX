@@ -16,7 +16,6 @@ public class ImagePreviewLabel {
 
         imageLabeled.setPrefSize(width,height);
         imageLabeled.setWrapText(true);
-        imageLabeled.setStyle("-fx-border-color: black");
         imageLabeled.setAlignment(Pos.BASELINE_CENTER);
         Image image = new Image(imagePath);
         ImageView imageView = new ImageView(image);

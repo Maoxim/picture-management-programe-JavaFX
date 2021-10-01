@@ -23,6 +23,7 @@ public class MyFlowPane extends StackPane {
    public static TreeItem<File> file = new TreeItem<>();
    public static StackPane stackPane = new StackPane();
    public ScrollPane scrollPane = new ScrollPane();
+   public static int a=0;
 
     public void setFile(TreeItem<File> file) {
         MyFlowPane.file = file;
@@ -37,30 +38,11 @@ public class MyFlowPane extends StackPane {
         flowPane.setVgap(25);
         //this.getChildren().addAll(flowPane,MouseDraggedController.pane);
 
-        flowPane.setStyle("-fx-background-color: gray");
+        flowPane.setStyle("-fx-background-color: rgb(255,255,255)");
         flowPane.setPrefSize(579.8,600);
 
 
-        this.getChildren().addAll(flowPane,MouseDraggedController.pane);
-
-
-        MouseDraggedController.pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-               // System.out.println("aaaaaaa");
-                getChildren().clear();
-                getChildren().add(flowPane);
-            }
-        });
-
-        flowPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-               // System.out.println("bbbbb");
-                getChildren().clear();
-                getChildren().addAll(flowPane,MouseDraggedController.pane);
-            }
-        });
+        this.getChildren().add(flowPane);
 
     }
 
@@ -76,7 +58,9 @@ public class MyFlowPane extends StackPane {
                     String fileName = value.getName();
                     String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
                     //支持图片的格式
-                    if (suffix.equals("jpg")||suffix.equals("JPG")||suffix.equals("png")) {
+                   // 程序能够显示的图片格式包括:.JPG、.JPEG、.GIF、.PNG、和.BMP。
+                    if (suffix.equals("jpg")||suffix.equals("JPG")||suffix.equals("png")||suffix.equals("BMP")
+                            ||suffix.equals("GIF")||suffix.equals("JPEG")||suffix.equals("gif")) {
                         setPictureOnFlowPane("File:"+value.getAbsolutePath(),fileName);
                     }
                 }
@@ -92,7 +76,8 @@ public class MyFlowPane extends StackPane {
                     String fileName = value.getName();
                     String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
                     //支持图片的格式
-                    if (suffix.equals("jpg")||suffix.equals("JPG")||suffix.equals("png")) {
+                    if (suffix.equals("jpg")||suffix.equals("JPG")||suffix.equals("png")||suffix.equals("BMP")
+                            ||suffix.equals("GIF")||suffix.equals("JPEG")||suffix.equals("gif")) {
                         setPictureOnFlowPane("File:"+value.getAbsolutePath(),fileName);
                     }
                 }
